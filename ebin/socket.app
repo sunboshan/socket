@@ -1,0 +1,7 @@
+{application,socket,
+  [{description,[]},
+   {vsn,"0.1.0"},
+   {modules,[
+   ]},
+   {registered,[]},
+   {applications,[kernel,stdlib]}}.
