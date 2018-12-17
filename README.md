@@ -2,6 +2,29 @@
 
 Play with Erlang socket.
 
+## echo
+
+![echo](../assets/echo.gif?raw=true)
+
+A simple echo server using tcp. Open up two shells.
+
+```
+$ make run                       |
+1> echo:start(9527).             |
+<0.84.0>                         |
+                                 |        $ telnet 127.0.0.1 9527
+Socket #Port<0.7> connected.     |        Trying 127.0.0.1...
+                                 |        Connected to localhost.
+                                 |        Escape character is '^]'.
+                                 |        123
+                                 |        123
+                                 |        abc
+                                 |        abc
+                                 |        ^]
+                                 |        telnet> quit
+Socket #Port<0.7> disconnected.  |        Connection closed.
+```
+
 ## udp
 
 Open up two shells.
@@ -39,25 +62,4 @@ Socket #Port<0.8> connected.     |        Trying 127.0.0.1...
 #Port<0.8>: abc                  |
                                  |        telnet> Connection closed.
 Socket #Port<0.8> disconnected.  |
-```
-
-## echo
-
-A simple echo server using tcp. Open up two shells.
-
-```
-$ make run                       |
-1> echo:start(9527).             |
-<0.84.0>                         |
-                                 |        $ telnet 127.0.0.1 9527
-Socket #Port<0.7> connected.     |        Trying 127.0.0.1...
-                                 |        Connected to localhost.
-                                 |        Escape character is '^]'.
-                                 |        123
-                                 |        123
-                                 |        abc
-                                 |        abc
-                                 |        ^]
-                                 |        telnet> quit
-Socket #Port<0.7> disconnected.  |        Connection closed.
 ```
