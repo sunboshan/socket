@@ -11,15 +11,17 @@ init(Port) ->
 
 acceptor(LSocket) ->
     {ok,Socket}=gen_tcp:accept(LSocket),
-    io:format("~w connected!~n",[Socket]),
+    {ok,{Ip,Port}=Peer}=inet:peername(Socket),
+    io:format("~s:~b connected!~n",[inet:ntoa(Ip),Port]),
     spawn(echo,acceptor,[LSocket]),
-    loop(Socket).
+    loop(Socket,Peer).
 
-loop(Socket) ->
+loop(Socket,Peer) ->
     receive
         {tcp,Socket,Msg} ->
             gen_tcp:send(Socket,Msg),
-            loop(Socket);
+            loop(Socket,Peer);
         {tcp_closed,Socket} ->
-            io:format("~w disconnected!~n",[Socket])
+            {Ip,Port}=Peer,
+            io:format("~s:~b connected!~n",[inet:ntoa(Ip),Port])
     end.
