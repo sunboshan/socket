@@ -63,3 +63,15 @@ Socket #Port<0.8> connected.     |        Trying 127.0.0.1...
                                  |        telnet> Connection closed.
 Socket #Port<0.8> disconnected.  |
 ```
+
+## nat_pmp
+
+Simple NAT-PMP implementation. [RFC 6886](https://tools.ietf.org/html/rfc6886).
+
+```
+$ make run
+1> nat_pmp:start().
+<0.103.0>
+Seconds: 9537
+Public IP is 38.88.166.250
+```
