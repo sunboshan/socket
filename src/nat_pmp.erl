@@ -5,13 +5,20 @@ start() ->
     spawn(nat_pmp,init,[]).
 
 init() ->
+    {ok,Ip}=
+        case os:type() of
+            {unix,darwin} ->
+                Ip0=os:cmd("ipconfig getoption en0 router"),
+                Ip1=string:strip(Ip0,right,$\n),
+                inet:parse_address(Ip1)
+        end,
     {ok,Socket}=gen_udp:open(0,[binary,{active,true}]),
-    gen_udp:send(Socket,{10,0,1,1},5351,<<0,0>>),
+    gen_udp:send(Socket,Ip,5351,<<0,0>>),
     loop(Socket).
 
 loop(Socket) ->
     receive
-        {udp,Socket,Ip,Port,Data} ->
+        {udp,Socket,_Ip,_Port,Data} ->
             parse(Data),
             loop(Socket)
     end.
