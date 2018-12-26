@@ -23,5 +23,5 @@ loop(Socket,Peer) ->
             loop(Socket,Peer);
         {tcp_closed,Socket} ->
             {Ip,Port}=Peer,
-            io:format("~s:~b connected!~n",[inet:ntoa(Ip),Port])
+            io:format("~s:~b disconnected!~n",[inet:ntoa(Ip),Port])
     end.
