@@ -16,7 +16,7 @@ init(Port) ->
 loop(Socket) ->
     receive
         {udp,_Socket,Ip,Port,Msg} ->
-            io:format("~w:~w ~ts~n",[Ip,Port,Msg]),
+            io:format("~s:~w ~ts~n",[inet:ntoa(Ip),Port,Msg]),
             loop(Socket);
 
         {send,Port,Msg} ->
