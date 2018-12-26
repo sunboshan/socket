@@ -70,8 +70,25 @@ Simple NAT-PMP implementation. [RFC 6886](https://tools.ietf.org/html/rfc6886).
 
 ```
 $ make run
-1> nat_pmp:start().
+1> P=nat_pmp:start().
 <0.103.0>
-Seconds: 9537
-Public IP is 38.88.166.250
+Time since last restart: 5525s
+Public IP is 238.88.166.250
+2> nat_pmp:tcp_mapping(P,6677,56789).
+ok
+Successfully created tcp mapping 6677 <> 56789, expires in 7200s
 ```
+
+Now open up two shells, one from local, one from anywhere.
+
+```
+$ make run                       |        $ erl  % from anywhere
+1> tcp:start(6677).              |
+<0.84.0>                         |        1> {ok,S}=gen_tcp:connect({238,88,166,250},56789,[]).
+Socket #Port<0.7> connected.     |        {ok,#Port<0.6>}
+                                 |        2> gen_tcp:send(S,"hi").
+#Port<0.7>: hi                   |        ok
+Socket #Port<0.7> disconnected.  |        % ctrl+\ to exit
+```
+
+This indicates a localhost ip `127.0.0.1:6677` is talking to a remote ip via NAT gateway `238.88.166.250:56789`.
