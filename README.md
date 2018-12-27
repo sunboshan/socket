@@ -95,7 +95,7 @@ This indicates a localhost ip `127.0.0.1:6677` is talking to a remote ip via NAT
 
 ## upnp
 
-Minimum UPnP discovery for your router. Adding tcp/udp port mapping requires send HTTP/1.1 post request over UDP with huge SOAP XML.
+Minimum UPnP discovery for your router. Adding tcp/udp port mapping requires send HTTP/1.1 post request over UDP with huge SOAP XML(skip for now). Specs in [here](http://upnp.org/specs/gw/UPnP-gw-WANIPConnection-v1-Service.pdf).
 
 ```
 $ make run
