@@ -92,3 +92,20 @@ Socket #Port<0.7> disconnected.  |        % ctrl+\ to exit
 ```
 
 This indicates a localhost ip `127.0.0.1:6677` is talking to a remote ip via NAT gateway `238.88.166.250:56789`.
+
+## upnp
+
+Minimum UPnP discovery for your router. Adding tcp/udp port mapping requires send HTTP/1.1 post request over UDP with huge SOAP XML.
+
+```
+$ make run
+1> upnp:start().
+<0.87.0>
+HTTP/1.1 200 OK
+Server: Custom/1.0 UPnP/1.0 Proc/Ver
+EXT:
+Location: http://192.168.1.1:5431/dyndev/uuid:98fc11f8-e410-10e4-f811-fc98fcf8100000
+Cache-Control:max-age=40
+ST:urn:schemas-upnp-org:device:InternetGatewayDevice:1
+USN:uuid:98fc11f8-e410-10e4-f811-fc98fcf8100000::urn:schemas-upnp-org:device:InternetGatewayDevice:1
+```
