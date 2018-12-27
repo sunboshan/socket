@@ -76,7 +76,7 @@ Time since last restart: 5525s
 Public IP is 238.88.166.250
 2> nat_pmp:tcp_mapping(P,6677,56789).
 ok
-Successfully created tcp mapping 6677 <> 56789, expires in 7200s
+Successfully created tcp mapping 192.168.1.101:6677 <> 238.88.166.250:56789, expires in 7200s
 ```
 
 Now open up two shells, one from local, one from anywhere.
@@ -91,7 +91,7 @@ Socket #Port<0.7> connected.     |        {ok,#Port<0.6>}
 Socket #Port<0.7> disconnected.  |        % ctrl+\ to exit
 ```
 
-This indicates a localhost ip `127.0.0.1:6677` is talking to a remote ip via NAT gateway `238.88.166.250:56789`.
+This indicates a localhost ip `192.168.1.101:6677` is talking to a remote ip via NAT gateway `238.88.166.250:56789`.
 
 ## upnp
 
