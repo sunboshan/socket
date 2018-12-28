@@ -6,8 +6,12 @@ start() ->
     spawn(nat_pmp,init,[]).
 
 udp_mapping(Pid,InternalPort,ExternalPort) ->
-    Pid ! {udp_port_mapping,InternalPort,ExternalPort},
-    ok.
+    Pid ! {{udp_port_mapping,InternalPort,ExternalPort},self()},
+    receive
+        {udp_reply,Addr} -> {ok,Addr}
+    after
+        1000 -> {error,timeout}
+    end.
 
 tcp_mapping(Pid,InternalPort,ExternalPort) ->
     Pid ! {tcp_port_mapping,InternalPort,ExternalPort},
@@ -37,8 +41,9 @@ loop({Socket,Ip}) ->
             parse(Data),
             loop({Socket,Ip});
 
-        {udp_port_mapping,InternalPort,ExternalPort} ->
+        {{udp_port_mapping,InternalPort,ExternalPort},From} ->
             gen_udp:send(Socket,Ip,5351,<<0,1,0:16,InternalPort:16,ExternalPort:16,7200:32>>),
+            put(from,From),
             loop({Socket,Ip});
 
         {tcp_port_mapping,InternalPort,ExternalPort} ->
@@ -54,7 +59,9 @@ parse(<<0,128,_Result:16,Seconds:32,A,B,C,D>>) ->
 
 parse(<<0,129,0:16,_Seconds:32,InternalPort:16,ExternalPort:16,LifeTime:32>>) ->
     io:format("Successfully created udp mapping ~s:~b <> ~s:~b, expires in ~bs~n",[
-      get(internal_ip),InternalPort,get(external_ip),ExternalPort,LifeTime]);
+      get(internal_ip),InternalPort,get(external_ip),ExternalPort,LifeTime]),
+    From=get(from),
+    From ! {udp_reply,{get(external_ip),ExternalPort}};
 
 parse(<<0,130,0:16,_Seconds:32,InternalPort:16,ExternalPort:16,LifeTime:32>>) ->
     io:format("Successfully created tcp mapping ~s:~b <> ~s:~b, expires in ~bs~n",[
