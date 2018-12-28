@@ -3,3 +3,6 @@ build:
 
 run:
 	@erl -pa ebin
+
+join:
+	@cd ebin; escript dq.beam

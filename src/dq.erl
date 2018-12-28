@@ -1,17 +1,18 @@
-#!/usr/bin/env escript
-%%! -pa ../ebin
 -module(dq).
--export([start/0,init/1]).
 -export([main/1]).
+-export([start/0,init/1]).
 
 -define(NAT_RENEW_PERIOD,3600000).
 
 main([]) ->
-    start();
+    case os:getenv("PORT") of
+        false ->
+            start();
 
-main([Port]) ->
-    os:putenv("BOOT","38.88.166.250:"++Port),
-    start().
+        Port ->
+            os:putenv("BOOT","38.88.166.250:"++Port),
+            start()
+    end.
 
 start() ->
     Pid=spawn(dq,init,[os:getenv("BOOT")]),

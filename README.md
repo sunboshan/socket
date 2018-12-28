@@ -116,8 +116,7 @@ Distributed qq.
 
 Start first node
 ```
-$ cd src
-$ ./dq.erl
+$ make join
 > Time since last restart: 172584s
 > Public IP is 238.88.166.250
 > Successfully created udp mapping 10.0.1.22:53615 <> 238.88.166.250:9527, expires in 7200s
@@ -126,8 +125,7 @@ $ ./dq.erl
 
 Start second node
 ```
-$ cd src
-$ ./dq.erl 9527
+$ PORT=9527 make join
 > Time since last restart: 172658s
 > Public IP is 238.88.166.250
 > Successfully created udp mapping 10.0.1.22:64782 <> 238.88.166.250:39295, expires in 7200s
