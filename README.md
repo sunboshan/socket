@@ -109,3 +109,29 @@ Cache-Control:max-age=40
 ST:urn:schemas-upnp-org:device:InternetGatewayDevice:1
 USN:uuid:98fc11f8-e410-10e4-f811-fc98fcf8100000::urn:schemas-upnp-org:device:InternetGatewayDevice:1
 ```
+
+## dq
+
+Distributed qq.
+
+Start first node
+```
+$ cd src
+$ ./dq.erl
+> Time since last restart: 172584s
+> Public IP is 238.88.166.250
+> Successfully created udp mapping 10.0.1.22:53615 <> 238.88.166.250:9527, expires in 7200s
+>
+```
+
+Start second node
+```
+$ cd src
+$ ./dq.erl 9527
+> Time since last restart: 172658s
+> Public IP is 238.88.166.250
+> Successfully created udp mapping 10.0.1.22:64782 <> 238.88.166.250:39295, expires in 7200s
+>
+```
+
+Now they can start chatting!

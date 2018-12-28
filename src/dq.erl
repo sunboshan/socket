@@ -1,6 +1,5 @@
 #!/usr/bin/env escript
 %%! -pa ../ebin
-
 -module(dq).
 -export([start/0,init/1]).
 -export([main/1]).
