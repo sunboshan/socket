@@ -133,3 +133,15 @@ $ PORT=9527 make join
 ```
 
 Now they can start chatting!
+
+## rpc1
+
+Simplest rpc. Use `rpc1` to avoid name clash with Kernel's `rpc` module.
+
+Open up two shells.
+
+```
+$ make run                       |        $ make run
+1> rpc1:start().                 |        1> rpc1:call(lists,seq,[1,10]).
+<0.84.0>                         |        [1,2,3,4,5,6,7,8,9,10]
+```
