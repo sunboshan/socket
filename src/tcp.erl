@@ -38,5 +38,8 @@ loop(Socket) ->
 
         {send,Msg} ->
             gen_tcp:send(Socket,Msg),
-            loop(Socket)
+            loop(Socket);
+
+        Msg ->
+            io:format("Got Msg ~p~n",[Msg])
     end.

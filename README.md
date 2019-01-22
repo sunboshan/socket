@@ -145,3 +145,18 @@ $ make run                       |        $ make run
 1> rpc1:start().                 |        1> rpc1:call(lists,seq,[1,10]).
 <0.84.0>                         |        [1,2,3,4,5,6,7,8,9,10]
 ```
+
+## unix domain socket
+
+Open up two shells.
+
+```
+$ make run                           |        $ make run
+1> P=udp:start("/tmp/a.sock").       |        1> P=udp:start("/tmp/b.sock").
+<0.84.0>                             |        <0.84.0>
+2> udp:send(P,"/tmp/b.sock","hi").   |
+ok                                   |        /tmp/a.sock hi
+                                     |        2> udp:send(P,"/tmp/a.sock","hello").
+/tmp/b.sock hello                    |        ok
+```
+
